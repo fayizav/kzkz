@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Order Success</title>
+</head>
+<body>
+	<div class="container">
+		<div class="container mb-4">
+			<div class="container-fluid">
+			  <div class="row">
+				<div class="col-md-6">
+				  <div class="card order-details mt-4">
+					<div class="card-header">
+					  <h4>Order Details</h4>
+					</div>
+					<div class="card-body">
+					  <% for (var i = 0; i < order.products.length; i++) { %>
+						<div class="product-details">
+						  <span><%= order.products[i].product.Productname %></span>
+						  <span>: <%= order.products[i].quantity %></span>
+						</div>
+					  <% } %>
+					  <div class="total-details">
+						<p>Total: <%= order.totalPrice %></p>
+						<p>Payment Method: <%= order.paymentMethod %></p>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<div class="col-md-6">
+				  <!-- Add any other content you may have here -->
+				</div>
+			  </div>
+			</div>
+		  </div>
+		  
+			  
+		<h1>Order Successful</h1>
+		<p>Thank you for your purchase. Your order has been successfully processed and will be shipped within the next 2-3 business days.</p>
+		<p>You will receive an email with your order confirmation and shipping details shortly.</p>
+		
+	</div>
+</body>
+</html>

@@ -1,0 +1,170 @@
+
+    <main class="main">
+        
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table shopping-summery text-center clean">
+                                <thead>
+                                    <tr class="main-heading">
+                                        <th scope="col">Index</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Subtotal</th>
+                                        <th scope="col">Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for (var i =0; i < cart.length;  i++ ) { %>
+
+                                    <tr>
+                                        <td><%= i+1 %></td>
+                                        <td class="image product-thumbnail"><img src="/images/<%=cart[i].products[0]?.Image[0]%>" alt="#"></td>
+                                        <td class="product-des product-name">
+                                            <h5 class="product-name"><a href="shop-product-right.html"><%=cart[i].products[0]?.Productname%></a></h5>
+                                            <p class="font-xs"><%=cart[i].products[0]?.ProductDescription%>
+                                            </p>
+                                        </td>
+                                        <td class="price" data-title="Price"><span> <%=cart[i].products[0]?.Price%></span></td>
+                                        <td class="text-center" data-title="Stock">
+                                            <div class="detail-qty border radius  m-auto">
+                                                <button class="qty-down" onclick="changeQuantity('<%=cart[i]?._id%>', '<%=cart[i]?.products._id%>','<%=cart[i]?.products[0]?.Price%>',-1)"><i class="fi-rs-angle-small-down"></i></button>
+                                                <span class="qty-val" ><%=cart[i].quantity%></span>
+                                                <button  class="qty-up" onclick="changeQuantity(`<%=cart[i]?._id%>`, `<%=cart[i]?.products._id%>`,`<%=cart[i]?.products[0]?.Price%>`,1)"><i class="fi-rs-angle-small-up"></i></button>
+                                                
+                                            </div>
+                                        </td>
+                                       
+
+                                        <td class="text-right" data-title="Cart">
+                                            <span>₹ <span id="<%=cart[i]?.products._id%>"><%=cart[i]?.subtotal%></span></span>
+                                        </td>
+                                        
+
+
+                                        <div class="subtotal" style="font-size: 20px; font-weight: 600; margin-left: -3rem;">
+                                            <strong> ₹ <span id="<%= this.product %>"><%= this.subtotal %></span></strong>
+                                          </div> 
+                                          
+
+                                        <td class="action" data-title="Remove"><a href="/delete-cart-product/<%=cart[i]?.products[0]?._id%>" class="text-muted"><i class="fi-rs-trash"></i></a></td>
+                                    </tr>
+                                    <% } %>
+    
+                                    
+                                    <!-- <tr>
+                                        <td colspan="6" class="text-end">
+                                            <a href="#" class="text-muted"> <i class="fi-rs-cross-small"></i> Clear Cart</a>
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                       
+                         <div class="col-md-6 text-right" style="margin-left: auto;">
+                            <h5 class="font-weight-bold">CartTotal: <%= cartTotal %></h5>
+                        </div>
+
+                                      <div style="text-align: right;">
+                                        <a href="/shop-checkoutt" class="btn"> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                      </div>
+                                      
+                                      
+                                    <!-- <a href="#" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+  
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="text-center">
+                    <h5 class="mb-5">Now Loading</h5>
+                    <div class="loader">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor JS-->
+    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/plugins/slick.js"></script>
+    <script src="assets/js/plugins/jquery.syotimer.min.js"></script>
+    <script src="assets/js/plugins/wow.js"></script>
+    <script src="assets/js/plugins/jquery-ui.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.js"></script>
+    <script src="assets/js/plugins/magnific-popup.js"></script>
+    <script src="assets/js/plugins/select2.min.js"></script>
+    <script src="assets/js/plugins/waypoints.js"></script>
+    <script src="assets/js/plugins/counterup.js"></script>
+    <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+    <script src="assets/js/plugins/images-loaded.js"></script>
+    <script src="assets/js/plugins/isotope.js"></script>
+    <script src="assets/js/plugins/scrollup.js"></script>
+    <script src="assets/js/plugins/jquery.vticker-min.js"></script>
+    <!-- Template  JS -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/shop.js"></script>
+</body>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:06 GMT -->
+</html>
+
+
+<script>
+  function changeQuantity(cartId, prodId, Price, count) {
+    console.log("how r u");
+    console.log(cartId, prodId, count, Price+"quaaaaaaaaa");
+    let quantity = parseInt(document.getElementById(prodId).innerHTML)
+    console.log(quantity);
+    count = parseInt(count)
+    const totalQuantity=count+quantity
+    const subtotal=(totalQuantity*Price)
+    if(totalQuantity!=0){
+        document.getElementById(prodId+'-subtotal').innerHTML=subtotal
+    }
+    $.ajax({
+      url: '/changeQuantity',
+      data: {
+    
+        cart: cartId,
+        product: prodId,
+        count: count,
+        quantity: quantity,
+        price:Price
+      },
+      method: 'post',
+      success: (response) => {
+        if (response.removeProduct) {
+          alert("Product Removed From the Cart")
+          location.reload()
+        }
+  
+        else {
+        //   document.getElementById(prod ).innerHTML = quantity + count
+          document.getElementById('total').innerHTML = response.total
+          document.getElementById(prodId).innerHTML = response.subtotal
+        }
+      }
+    })
+  }
+</script>  
+

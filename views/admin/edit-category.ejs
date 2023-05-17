@@ -1,0 +1,58 @@
+<section class="">
+    <div class="container d-flex justify-content-center">
+
+      <div class="row w-75 mt-5">
+        <div class="col-md-12">
+          
+          <% if (locals.checkcat) { %>
+            <h3 style="color: red;">category already exists</h3>
+            
+        <% } else { %>
+          <h2 class="text-center">Edit <%=editCat.CategoryName%></h2>
+
+            
+        <% } %>
+        
+          
+          <form
+            action="/admin/edit-category/<%=editCat.id%>"
+            method="POST" 
+            onsubmit="return validateCategory()"
+          >
+            <label for="">Category Name</label>
+            <input type="text" name="categoryname" class="form-control" value="<%=editCat.CategoryName%>"/>
+            <button type="submit" class="btn btn-success mt-4">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    var categoryNames = [];
+
+function validateCategory() {
+  var category = document.getElementById("category").value.trim();
+  var categoryError = document.getElementById("category-error");
+
+  // Check if category name is empty
+  if (category === "") {
+    categoryError.innerHTML = "Please enter a category name";
+    return false;
+  }
+
+  // Check if category name already exists
+  if (categoryNames.includes(category.toLowerCase())) {
+    
+    categoryError.innerHTML = "Category already exists";
+    return false;
+  } else {
+    // Add category name to the array
+    categoryNames.push(category.toLowerCase());
+    categoryError.innerHTML = "";
+    return true;
+  }
+}
+
+
+  </script>

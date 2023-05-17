@@ -1,0 +1,129 @@
+
+
+
+
+
+
+<body>
+  <section class="content-main">
+    <div class="content-header">
+      <div>
+        <h2 class="content-title card-title">Order List </h2>
+        <p></p>
+      </div>
+    </div>
+    <div class="card mb-4">
+      <!-- card-header end// -->
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover" id="ordersTable">
+            <thead>
+              <tr>
+                <th>#ID</th>
+               
+                
+                <th scope="col">Date</th>
+                <th scope="col">Current Status</th>
+                <th>Options</th>
+                <th>Actions</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <% orders.forEach(function(order) { %>
+                <tr>
+                  <td><%= order._id %></td>
+                  
+                  
+                  
+                  <td><%= order.date %></td>
+                  <td id="<%=order._id%>"><span class="badge rounded-pill alert-warning"><%= order.status %></span></td>
+                  <td class="align-middle fw-b">  
+                    <% if (order.status === "placed") { %>
+                      <select class="form-control" id="<%=order._id%><%=order.user%>" onchange="updateStatus(`<%=order._id%>`,`<%=order.user%>`)">
+                        <option value="placed" selected="true" disabled="true">Placed</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                      </select>
+                    <% } else if (order.status === "Shipped") { %>
+                      <select class="form-control" id=`<%=order._id%><%=order.user%>` onchange="updateStatus(`<%=order._id%>`,`<%=order.user%>`)">
+                        <option value="Shipped" selected="true" disabled="true">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                      </select>
+                    <% } else if (order.status === "Delivered") { %>
+                      <select class="form-control" id=`<%=order._id%><%=order.user%>` onchange="updateStatus(`<%=order._id%>`,`<%=order.user%>`)">
+                        <option value="Delivered" selected="true" disabled="true">Delivered</option>
+                      </select>
+                      <% } else { %>
+                      <select class="form-control" id="<%=order._id%><%=order.user%>" onchange="updateStatus(`<%=order._id%>`,`<%=order.user%>`)">
+                        <option value="placed" selected="true">Placed</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                      </select>
+                    <% } %>
+                  </td>
+                  <td>
+                    <a href="/admin/ordersview<%=order._id%>" class="btn btn-primary">View</a>
+                  </td>
+                  
+                  
+                  
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+            
+          </table>
+        </div> <!-- table-responsive //end -->
+      </div> <!-- card-body end// -->
+    </div> <!-- card end// -->
+  </section> <!-- content-main end// -->
+</body>
+<script>
+  
+function updateStatus(orderId,userId) {
+console.log(orderId);
+console.log(userId);
+var status = document.getElementById(orderId + userId).value;
+swal(
+  {
+    title: "Are you sure?",
+    text: "Do you want to " + status + " the order",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, " + status + " it!",
+    cancelButtonText: "No!",
+    closeOnConfirm: true,
+    closeOnCancel: true,
+  },
+  function (isConfirm) {
+    if (isConfirm) {
+      $.noConflict();
+      $.ajax({
+        url: "/admin/order-status",
+        data: {
+          orderId,
+          status
+        },
+        method: "post",
+        success: (response) => {
+          if (response.status) {
+            document.getElementById(orderId).innerHTML = status;
+            if (
+              status == "placed" ||
+              status == "shipped" ||
+              status == "delivered" ) 
+              {
+              location.reload();
+            }
+          }
+        }
+      })
+    } else {
+      location.reload();
+    }
+  }
+);
+}
+</script>

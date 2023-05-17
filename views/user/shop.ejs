@@ -1,0 +1,142 @@
+<body>
+    <!-- Quick view -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <main class="main">
+
+        <section class="mt-50 mb-50">
+            <div class="container">
+                <div class="row flex-row-reverse">
+                    <div class="col-lg-9">
+
+                        <div class="row product-grid-3">
+                            <% response.forEach(function(response,index) { %>
+
+                                <div class="col-lg-4 col-md-4 col-12 col-sm-6">
+
+
+                                    <div class="product-cart-wrap mb-30">
+                                        <div class="product-img-action-wrap">
+                                            <div class="product-img product-img-zoom">
+                                                <a href="/zoomView/<%= response._id %>">
+                                                    <img class="default-img" src="/images/products/<%= response.Image[0]%>" alt="">
+                                                    <img class="hover-img" src="/images/products/<%= response.Image[1]%>" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-action-1">
+                                                <a aria-label="Quick view" class="action-btn hover-up"
+                                                    data-bs-toggle="modal" data-bs-target="#quickViewModal">
+                                                    <i class="fi-rs-search"></i></a>
+                                                <a aria-label="Add To Wishlist" class="action-btn hover-up"
+                                                    href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
+                                                <a aria-label="Compare" class="action-btn hover-up"
+                                                    href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
+                                            </div>
+                                            <div class="product-badges product-badges-position product-badges-mrg">
+
+                                            </div>
+                                        </div>
+                                        <div class="product-content-wrap">
+                                            <div class="product-category">
+                                                <a href="shop-grid-right.html">
+                                                    <%=response.category%>
+                                                </a>
+                                            </div>
+                                            <h2><a href="shop-product-right.html">
+                                                    <%=response.Productname%>
+                                                </a></h2>
+                                            <div class="rating-result" title="90%">
+                                                <span>
+                                                    <span>95%</span>
+                                                </span>
+                                            </div>
+                                            <div class="product-price">
+                                                <span>₹
+                                                    <%=response.Price%>
+                                                </span>
+
+                                            </div>
+
+                                            <div class="product-action-1 show">
+                                                <% if (response.Quantity==0) { %>
+                                                    <a aria-label="Out of stock" aria-disabled="true" class="action-btn hover-up" id="cartbtn1"><i class="fi-rs-shopping-bag-add"></i></a>
+                                                    <% } else { %>
+
+                                                <a aria-label="Add To Cart" class="action-btn hover-up" onclick="addtocart(`<%=response._id%>`)"><i class="fi-rs-shopping-bag-add"></i></a>
+                                                <% } %>
+                                            </div>
+                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <!--pagination-->
+                        <!-- <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-start">
+                                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">02</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">03</a></li>
+                                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">16</a></li>
+                                    <li class="page-item"><a class="page-link" href="#"><i
+                                                class="fi-rs-angle-double-small-right"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-3 primary-sidebar sticky-sidebar">
+                        <div class="widget-category mb-30">
+                            <h5 class="section-title style-1 mb-30 wow fadeIn animated">Category</h5>
+                            <ul class="categories">
+                                <% cat.forEach(function(cat,index) { %>
+                                    <li><a href="shop-grid-right.html">
+                                            <%=cat.CategoryName%>
+                                        </a></li>
+                                    <% }) %>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+<script>
+    function addtocart(prodId) {
+        console.log(prodId);
+        $.ajax(
+            {
+                url: "/add-to-cart/" + prodId,
+                method: "get",
+                success: (response) => {
+                    if (response.status) {
+                        let count = $("#cart-count").html();
+                        count = parseInt(count) + 1;
+                        $("#cart-count").html(count);
+                        document.getElementById("success").classList.remove("d-none");
+                        setTimeout(function () {
+                            document.getElementById("success").classList.add("d-none");
+                        }, 1000);
+                    } else {
+                        location.href = "/login";
+                    }
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        console.log("sssssssssssssssss");
+    }
+
+</script>
+
+
+<!-- Mirrored from wp.alithemes.com/html/evara/evara-frontend/shop-grid-left.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 01 Aug 2021 15:26:43 GMT -->
+
+</html>
